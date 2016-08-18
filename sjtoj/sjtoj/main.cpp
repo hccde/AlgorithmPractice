@@ -22,7 +22,7 @@ int* templeSum(int **p,int sizew,int sizel,int *save,int w,int l){
         *(result+sizel) = save[sizel];
         n = sizel-1;
     }
-    int colSum;
+    int colSum(0);
     
     for(;n<sizel;n++){
         colSum=0;
@@ -38,41 +38,43 @@ int* templeSum(int **p,int sizew,int sizel,int *save,int w,int l){
 int main(int argc, const char * argv[]) {
     //读取
     
-    int w,l;
+    int w(0),l(0);
     cin>>w>>l;
-    const int L =l;
     int **width = new int *[w];
-    int *length;
-    int  sizel,sizew;
+    int  sizel(0),sizew(0);
     
     for(int i=0;i<w;i++){
-        length = new int[L];
+        int *length = new int[l];
         for(int j=0;j<l;j++){
            cin>> *(length+j);
         }
         *(width+i)= length;
     }
-    cin>>sizel>>sizew;
+    cin>>sizew>>sizel;
    
     // 计算
-    int best =0;
-    for(int m=0;m<w-sizew+1;m++){
-        int arrs[1];
+     int best(0);
+    for(int m=0;m<(w-sizew+1);m++){
+        int arrs[1]={0};
         int *arr = arrs;
         *arr = -1;//flag
-
-        for(int n=0;n<l-sizel+1;n++){
+        for(int n=0;n<(l-sizel+1);n++){
                 arr = templeSum(width,sizew,sizel,arr,m,n);
                 *(arr+sizel)>best?best=*(arr+sizel):best;
         }
         if(m>0){
             delete arr;
+            arr = NULL;
         }
     }
     
 //    输出
     cout<<best<<endl;
     //clear
-    delete []width;
+    for(int s=0;s<w;s++){
+        delete [] *(width+s);
+    }
+    delete [] width;
+    width = NULL;
     return 0;
 }
