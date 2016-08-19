@@ -7,75 +7,73 @@
 ////
 //
 //#include <iostream>
-//using namespace std;
-//int* templeSum(int **p,int sizew,int sizel,int *save,int w,int l){
-//    int *result = new int [sizel+1];
-//    int n=0;
-//    
-//    result[sizel]=0;
-//    //求和
-//    if(*save!=-1){
-//        save[sizel]= save[sizel]-save[0];
-//        for(int t=0;t<sizel-1;t++){
-//            *(result+t) = save[t+1];
+//
+//using std::cin;
+//using std::cout;
+//using std::endl;
+//
+// int l(0),w(0);
+// int L(0),W(0);
+// int best(0);
+//
+//inline int* tem(int start,int list[],int area[]){
+//    for(int i=0;i<l;i++){
+//        list[i]= 0;
+//        for(int j=0;j<w;j++){
+//            list[i] = list[i]+area[(j+start)*L+i];
 //        }
-//        *(result+sizel) = save[sizel];
-//        n = sizel-1;
 //    }
-//    int colSum(0);
+//    return  list;
 //    
-//    for(;n<sizel;n++){
-//        colSum=0;
-//        for(int m=0;m<sizew;m++){
-//            colSum = *(*(p+w+m)+l+n)+colSum;
-//        }
-//        *(result+n)=colSum;
-//        *(result+sizel) = *(result+sizel)+colSum;
-//    }
-//    return result;
 //}
 //
-//int main(int argc, const char * argv[]) {
-//    //读取
-//    
-//    int w(0),l(0);
-//    cin>>w>>l;
-//    const int L =l;
-//    int **width = new int *[w];
-//    int  sizel(0),sizew(0);
-//    
+//inline int* move(int startw,int startl,int list[],int area[]){
+//    int newele = 0;
 //    for(int i=0;i<w;i++){
-//        int *length = new int[L];
-//        for(int j=0;j<l;j++){
-//            cin>> *(length+j);
-//        }
-//        *(width+i)= length;
+//        int temres = startl+l-1;
+//        newele = newele+area[(i+startw)*L+temres];
 //    }
-//    cin>>sizew>>sizel;
+//    //调整
+//    for (int i=1; i<l; i++) {
+//        list[i-1]=list[i];
+//    }
+//    list[l-1] = newele;
 //    
-//    // 计算
-//    int best(0);
-//    for(int m=0;m<(w-sizew+1);m++){
-//        int arrs[1]={0};
-//        int *arr = arrs;
-//        *arr = -1;//flag
-//        for(int n=0;n<(l-sizel+1);n++){
-//            arr = templeSum(width,sizew,sizel,arr,m,n);
-//            *(arr+sizel)>best?best=*(arr+sizel):best;
-//        }
-//        if(m>0){
-//            delete arr;
-//            arr = NULL;
+//    return list;
+//}
+//
+//inline int compare(int list[],int best){
+//    int cache(0);
+//    for(int i=0;i<l;i++){
+//        cache = list[i]+cache;
+//    }
+//    cache>best?best=cache:best;
+//    return best;
+//}
+//
+//int main(){
+//    cin>>W>>L;
+//    int area[1001*1001];
+//    
+//    for(int i=0;i<W;i++){
+//        for(int j=0;j<L;j++){
+//            cin>>area[i*L+j];
 //        }
 //    }
 //    
-//    //    输出
+//    cin>>w>>l;
+//    
+//    int list[1001];
+//    for(int i=0;i<=W-w;i++){
+//        tem(i,list,area);
+//        best = compare(list,best);
+//        
+//        for (int j=1; j<=L-l; j++) {
+//            move(i,j,list,area);
+//            best = compare(list,best);
+//        }
+//    }
+//    
 //    cout<<best<<endl;
-//    //clear
-//    for(int s=0;s<w;s++){
-//        delete [] *(width+s);
-//    }
-//    delete [] width;
-//    width = NULL;
 //    return 0;
 //}
