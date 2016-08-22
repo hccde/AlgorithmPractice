@@ -6,7 +6,10 @@
 ////  Copyright © 2016年 admos. All rights reserved.
 ////
 //
+////有两条测试用例没过
+//
 //#include <iostream>
+//#include <stdio.h>
 //
 //using std::cin;
 //using std::cout;
@@ -57,7 +60,8 @@
 //    
 //    for(int i=0;i<W;i++){
 //        for(int j=0;j<L;j++){
-//            cin>>area[i*L+j];
+////            cin>>area[i*L+j];
+//            scanf("%d", &area[i*L+j]);
 //        }
 //    }
 //    
