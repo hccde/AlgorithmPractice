@@ -106,7 +106,6 @@ DateSeg* splitTime(DateSeg dateseg){
 int rmweekend(DateSeg dateseg){
     int result(0);
     int today = todayIs(dateseg.begin);
-    int lastday = todayIs(dateseg.end);
     int total = countdaysInYear(dateseg);
     //in a weekend
     if(dateseg.begin.month == dateseg.end.month && total<=7){
@@ -126,12 +125,69 @@ int rmweekend(DateSeg dateseg){
     if(today == 1){
         return total/7;
     }else{
-        8-today+lastday;//移动days 算weekend
+        int beforeMon = 8-today;
+        int weekend(0);
+        for (int i = 0; i<beforeMon; i++) {
+            if(today+i>5){
+                weekend = weekend+1;
+            }
+        }
+        int otherweekend = (total - beforeMon) % 7;
+        result =  otherweekend*2+weekend;//返回指定时间段的所有周末的天数
     }
     
     return result;
 }
 
+int specilday(DateSeg dataseg){//是周末的特殊节日不算
+    int result(0);
+    int today;
+    if (dataseg.begin.month == 1 && dataseg.begin.day == 1 ) {
+        today = todayIs({dataseg.begin.year,1,1});
+        if(today!=0 && today!=6) result = result+1;
+    }
+    if(dataseg.begin.month <= 5 && dataseg.end.month >= 5){
+        int hash[3]={0};
+        for (int i=1; i<=3; i++) {
+            int tem = todayIs({dataseg.begin.year,5,i});
+            if(tem !=0 || tem != 6) hash[i-1]=1;
+        }
+
+        if(dataseg.end.month == 5 && dataseg.end.day <= 3){
+            //在5月3之前结束
+            if(dataseg.end.day==2){
+                result = result+hash[0]+hash[1];
+            }else{
+                result = result+hash[0];
+            }
+        }else{
+            //大于5月3
+            for(int i=0;i<3;i++){
+                result = result+hash[i];
+            }
+        }
+    }
+    if(dataseg.begin.month <= 10 && dataseg.end.month >= 10){
+        int hash[7]={0};
+        for (int i=1; i<=7; i++) {
+            int tem = todayIs({dataseg.begin.year,7,i});
+            if(tem !=0 || tem != 6) hash[i-1]=1;
+        }
+        
+        if(dataseg.end.month == 10&&dataseg.end.day<=10){
+            //在10月7前结束
+            for (int i=1; i <= dataseg.end.day; i++) {
+                result = result+hash[i];
+            }
+        }else{
+            //大于10月
+            for (int i=0; i<7; i++) {
+                result = result+hash[i];
+            }
+        }
+    }
+    return result;
+}
 /**
  * per seg has how much weekdays
  **/
