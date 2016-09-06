@@ -48,7 +48,6 @@ inline bool isLeap(int year){
 int todayIs(Date date){
     int year = date.year % 100;
     year = (year/4+year)%7;
-    cout<<year<<" year"<<endl;
     int month = MAGICCODE[date.month-1];
     int day = date.day;
     return (year+month+day)%7;
@@ -120,10 +119,15 @@ int rmweekend(DateSeg dateseg){
                 result = result+1;
             }
         }
-        return result;
+//        cout<< (total - result)<<" 不足7天下所有的周末"<<endl;
+        return (total - result);
     }
     if(today == 1){
-        return total/7;
+        if((total) % 7 == 6) result = result+1;
+        result = (total / 7)*2+result;
+//        cout<< (total - result)<<" 第一天是星期一的所有工作日"<<endl;
+        return (total - result);
+        
     }else{
         int beforeMon = 8-today;
         int weekend(0);
@@ -132,11 +136,12 @@ int rmweekend(DateSeg dateseg){
                 weekend = weekend+1;
             }
         }
-        int otherweekend = (total - beforeMon) % 7;
-        result =  otherweekend*2+weekend;//返回指定时间段的所有周末的天数
+        int otherweekend = (total - beforeMon) / 7;
+        if((total - beforeMon) % 7 == 6) result = result+1;
+        result =  otherweekend*2+weekend+result;//返回指定时间段的所有周末的天数
     }
-    
-    return result;
+//    cout<< (total - result)<<" 第一天不是星期一的所有工作日"<<endl;
+    return (total - result);
 }
 
 int specilday(DateSeg dataseg){//是周末的特殊节日不算
@@ -150,10 +155,10 @@ int specilday(DateSeg dataseg){//是周末的特殊节日不算
         int hash[3]={0};
         for (int i=1; i<=3; i++) {
             int tem = todayIs({dataseg.begin.year,5,i});
-            if(tem !=0 || tem != 6) hash[i-1]=1;
+            if(tem !=0 && tem != 6) hash[i-1]=1;
         }
 
-        if(dataseg.end.month == 5 && dataseg.end.day <= 3){
+        if(dataseg.end.month == 5 && dataseg.end.day < 3){
             //在5月3之前结束
             if(dataseg.end.day==2){
                 result = result+hash[0]+hash[1];
@@ -165,19 +170,20 @@ int specilday(DateSeg dataseg){//是周末的特殊节日不算
             for(int i=0;i<3;i++){
                 result = result+hash[i];
             }
+//            cout<<result<<" 大于5-3"<<endl;
         }
     }
     if(dataseg.begin.month <= 10 && dataseg.end.month >= 10){
         int hash[7]={0};
         for (int i=1; i<=7; i++) {
             int tem = todayIs({dataseg.begin.year,7,i});
-            if(tem !=0 || tem != 6) hash[i-1]=1;
+            if(tem !=0 && tem != 6) hash[i-1]=1;
         }
         
-        if(dataseg.end.month == 10&&dataseg.end.day<=10){
+        if(dataseg.end.month == 10&&dataseg.end.day<=7){
             //在10月7前结束
             for (int i=1; i <= dataseg.end.day; i++) {
-                result = result+hash[i];
+                result = result+hash[i-1];
             }
         }else{
             //大于10月
@@ -186,6 +192,7 @@ int specilday(DateSeg dataseg){//是周末的特殊节日不算
             }
         }
     }
+//    cout<<result<<" special"<<endl;
     return result;
 }
 /**
@@ -194,23 +201,20 @@ int specilday(DateSeg dataseg){//是周末的特殊节日不算
 int getWeekday(DateSeg dataseg){
     int days = 0;
     days = rmweekend(dataseg);
-//    getSpecilday();
-    //specialIsweekend()
-    
+    days = days - specilday(dataseg);
     return days;
 }
 
-void dealPerSeg(DateSeg*splitedSeg,int length){
+int  dealPerSeg(DateSeg*splitedSeg,int length){
     //test
     if(debug){
-        testInput(length, splitedSeg);
+//        testInput(length, splitedSeg);
     }
     int total = 0;
-    //todo
     for (int i = 0; i<length; i++) {
         total = total + getWeekday(splitedSeg[i]);
     }
-    
+    return total;
 }
 
 int main(){
@@ -227,34 +231,15 @@ int main(){
         cin>>dateseg.begin.year>>bound>>dateseg.begin.month>>bound>>dateseg.begin.day>>dateseg.end.year>>bound>>dateseg.end.month>>bound>>dateseg.end.day;
         datelist[i] = dateseg;
     }
-    //test func
-    if(0){
-        testInput(n,datelist);
-    }
-    
+
+    int total(0);
     for (int i = 0; i<n; i++) {
         DateSeg* splitedSeg = splitTime(datelist[i]);
         int gap =  datelist[i].end.year - datelist[i].begin.year;
-        dealPerSeg(splitedSeg,gap+1);
-    }
-    
-    //test
-    if(0){
-    Date testdata = {
-        2010,
-        4,
-        25
-    };
-    cout<<todayIs(testdata)<<endl;
-    }
-    
-    //test
-    if (debug) {
-        DateSeg testseg = {
-            {2010,5,25},
-            {2010,5,28},
-        };
-        cout<<countdaysInYear(testseg)<<" days"<<endl;
+        total = dealPerSeg(splitedSeg,gap+1);
+        delete[] splitedSeg;
+        splitedSeg = NULL;
+        cout<<total<<endl;
     }
     return 0;
 }
