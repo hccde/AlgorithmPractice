@@ -22,40 +22,36 @@ typedef struct DateSeg {
 } DateSeg;
 
 int DATE[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
-int LEAPDATE[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
-int MAGICCODE[12] = {6,2,2,5,0,3,5,1,4,6,2,4};
-int LEAPMAGICCODE[12] = {5,1,2,5,0,3,5,1,4,6,2,4};
+int LEAPDATE[12] = {31,29,31,30,31,30,31,31,30,31,30,31};
 
-
-/**
- * test func
- **/
 void testInput(int n,DateSeg datelist[]){
     for (int i = 0; i < n; i++) {
         cout<<datelist[i].begin.year<<datelist[i].begin.month<<datelist[i].begin.day<<" - "<<datelist[i].end.year<<datelist[i].end.month<<datelist[i].end.day<<endl;
     }
 }
 
-
-/**
- * tool func
- **/
 inline bool isLeap(int year){
-    bool result =  year % 4 == 0 || year % 400 == 0? true:false;
+    bool result =  (year % 4 == 0&&year % 100!=0) || year % 400 == 0? true:false;
     return result;
 }
 
-int todayIs(Date date){
-    int year = date.year % 100;
-    year = (year/4+year)%7;
-    int month = MAGICCODE[date.month-1];
+int todayIs(Date date){//Zeller
+    int year = date.year;
+    int mon = date.month;
     int day = date.day;
-    return (year+month+day)%7;
+    
+    if (mon ==1 || mon == 2) { //判断月份是否为1或2
+        year--;
+        mon += 12;
+    }
+   int  c = year / 100;
+    year = year - c * 100;
+    int w = (c / 4) - 2 * c + (year + year / 4) + (13 * (mon + 1) / 5) + day - 1;
+    while (w < 0) w += 7;
+    w %= 7;
+    return w;
 }
 
-/**
- *count days from begin to end. attention! it's must be in a year
- **/
 int countdaysInYear(DateSeg dateseg){
     int result(0);
     int monthbegin = dateseg.begin.month;
@@ -66,10 +62,10 @@ int countdaysInYear(DateSeg dateseg){
     
     if(monthbegin == monthend){return dayend-daybegin+1;}
     
-    for (int i = (monthbegin); i<(monthend-1); i++) {
+    for (int i = (monthbegin-1); i<(monthend-1); i++) {
         result = result + table[i];
     }
-    result = table[monthbegin-1]+dayend-daybegin+1;
+    result = result+dayend-daybegin+1;
     
     return result;
 }
@@ -119,16 +115,17 @@ int rmweekend(DateSeg dateseg){
                 result = result+1;
             }
         }
-//        cout<< (total - result)<<" 不足7天下所有的周末"<<endl;
+
         return (total - result);
     }
     if(today == 1){
         if((total) % 7 == 6) result = result+1;
         result = (total / 7)*2+result;
-//        cout<< (total - result)<<" 第一天是星期一的所有工作日"<<endl;
+
         return (total - result);
         
     }else{
+        if(today==0) today = 7;
         int beforeMon = 8-today;
         int weekend(0);
         for (int i = 0; i<beforeMon; i++) {
@@ -136,11 +133,14 @@ int rmweekend(DateSeg dateseg){
                 weekend = weekend+1;
             }
         }
+
         int otherweekend = (total - beforeMon) / 7;
+
         if((total - beforeMon) % 7 == 6) result = result+1;
+
         result =  otherweekend*2+weekend+result;//返回指定时间段的所有周末的天数
     }
-//    cout<< (total - result)<<" 第一天不是星期一的所有工作日"<<endl;
+
     return (total - result);
 }
 
@@ -170,7 +170,6 @@ int specilday(DateSeg dataseg){//是周末的特殊节日不算
             for(int i=0;i<3;i++){
                 result = result+hash[i];
             }
-//            cout<<result<<" 大于5-3"<<endl;
         }
     }
     if(dataseg.begin.month <= 10 && dataseg.end.month >= 10){
@@ -181,23 +180,20 @@ int specilday(DateSeg dataseg){//是周末的特殊节日不算
         }
         
         if(dataseg.end.month == 10&&dataseg.end.day<=7){
-            //在10月7前结束
+
             for (int i=1; i <= dataseg.end.day; i++) {
                 result = result+hash[i-1];
             }
         }else{
-            //大于10月
+
             for (int i=0; i<7; i++) {
                 result = result+hash[i];
             }
         }
     }
-//    cout<<result<<" special"<<endl;
     return result;
 }
-/**
- * per seg has how much weekdays
- **/
+
 int getWeekday(DateSeg dataseg){
     int days = 0;
     days = rmweekend(dataseg);
@@ -206,10 +202,6 @@ int getWeekday(DateSeg dataseg){
 }
 
 int  dealPerSeg(DateSeg*splitedSeg,int length){
-    //test
-    if(debug){
-//        testInput(length, splitedSeg);
-    }
     int total = 0;
     for (int i = 0; i<length; i++) {
         total = total + getWeekday(splitedSeg[i]);
@@ -218,10 +210,6 @@ int  dealPerSeg(DateSeg*splitedSeg,int length){
 }
 
 int main(){
-    /**
-     * input date group
-     *
-     **/
     int n(0);
     cin>>n;
     DateSeg datelist[356];
@@ -233,6 +221,7 @@ int main(){
     }
 
     int total(0);
+
     for (int i = 0; i<n; i++) {
         DateSeg* splitedSeg = splitTime(datelist[i]);
         int gap =  datelist[i].end.year - datelist[i].begin.year;
