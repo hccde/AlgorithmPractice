@@ -243,6 +243,9 @@
 		76E14A9F1D5B03F100080283 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -250,6 +253,9 @@
 		76E14AA01D5B03F100080283 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

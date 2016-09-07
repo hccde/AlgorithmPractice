@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>htmlparse.xcscheme</key>
+		<key>uoj.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>760B961A1D77DE43003848E8</key>
+		<key>76CE0D791D7FEF1E00065165</key>
 		<dict>
 			<key>primary</key>
 			<true/>

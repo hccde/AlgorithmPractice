@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "760B961A1D77DE43003848E8"
-               BuildableName = "htmlparse"
-               BlueprintName = "htmlparse"
-               ReferencedContainer = "container:htmlparse.xcodeproj">
+               BlueprintIdentifier = "76CE0D791D7FEF1E00065165"
+               BuildableName = "uoj"
+               BlueprintName = "uoj"
+               ReferencedContainer = "container:uoj.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "760B961A1D77DE43003848E8"
-            BuildableName = "htmlparse"
-            BlueprintName = "htmlparse"
-            ReferencedContainer = "container:htmlparse.xcodeproj">
+            BlueprintIdentifier = "76CE0D791D7FEF1E00065165"
+            BuildableName = "uoj"
+            BlueprintName = "uoj"
+            ReferencedContainer = "container:uoj.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "760B961A1D77DE43003848E8"
-            BuildableName = "htmlparse"
-            BlueprintName = "htmlparse"
-            ReferencedContainer = "container:htmlparse.xcodeproj">
+            BlueprintIdentifier = "76CE0D791D7FEF1E00065165"
+            BuildableName = "uoj"
+            BlueprintName = "uoj"
+            ReferencedContainer = "container:uoj.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "760B961A1D77DE43003848E8"
-            BuildableName = "htmlparse"
-            BlueprintName = "htmlparse"
-            ReferencedContainer = "container:htmlparse.xcodeproj">
+            BlueprintIdentifier = "76CE0D791D7FEF1E00065165"
+            BuildableName = "uoj"
+            BlueprintName = "uoj"
+            ReferencedContainer = "container:uoj.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
