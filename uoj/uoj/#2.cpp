@@ -93,16 +93,44 @@ int main(int argc,char* argv[]){
                 result[j] = compute(doors,n,j,attack[j]);
                 continue;//特殊处理
             }
-            if(compute(doors,n,j,attack[j])==1){
-                result[j]=1;
-            }else{
-                char tem = (!(attack[j]-'0'))+'0';
-                if(!flag){result[j]=0;continue;}//之前没有任何一个高位1变0 则不能0变1
-                if(compute(doors,n,j,tem)==1){
-                    if(attack[j]=='1'){flag=1;}//第一次1变0之后都可以0变1
-                    result[j]=1;
+//            if(compute(doors,n,j,attack[j])==1){
+//                if(compute(doors, n, j, <#char value#>)) 0也可以 1也可以 使得1变0 为低位创造条件 #todo
+//                result[j]=1;
+//            }else{
+//                char tem = (!(attack[j]-'0'))+'0';
+//                if((flag==0) && (attack[j]=='0')){result[j] = 0;continue;}//之前没有任何一个高位1变0 则不能0变1
+//                if(compute(doors,n,j,tem)==1){
+//                    if(attack[j]=='1'){flag=1;}//第一次1变0之后都可以0变1
+//                    result[j]=1;
+//                }else{
+//                    if(attack[j]=='1'){flag=1;}
+//                    result[j]=0;
+//                }
+//            }
+            if(attack[j] == '1'){
+                if(compute(doors,n,j,attack[j])==1){
+                    result[j] = 1;
                 }else{
-                    result[j]=0;
+                    result[j] = 0;
+                    flag = 1;
+                }
+                if(compute(doors,n,j,'0')==1){
+                    flag = 1;
+                    result[j] = 1;
+                }
+            }else{
+                if(compute(doors,n,j,attack[j])==1){
+                    result[j] = 1;
+                }else{
+                    if(flag){
+                        if(compute(doors,n,j,'1')==1){
+                            result[j] = 1;
+                        }else{
+                            result[j] = 0;
+                        }
+                    }else{
+                        result[j] = compute(doors,n,j,attack[j]);
+                    }
                 }
             }
         }
