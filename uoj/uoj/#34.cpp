@@ -64,3 +64,15 @@
 //    
 //    return 0;
 //}
+//#include <iostream>
+//
+//using std::cout;
+//using std::cin;
+//using std::endl;
+//
+//int main(int argc,char* argv[]){
+//    int n(0),m(0);
+//    cin>>n>>m;
+//    
+//    return 0;
+//}
