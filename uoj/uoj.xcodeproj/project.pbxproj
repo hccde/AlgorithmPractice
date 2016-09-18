@@ -14,6 +14,8 @@
 		76CE0D8B1D80031F00065165 /* #2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76CE0D8A1D80031F00065165 /* #2.cpp */; };
 		76CE0D901D87DDC500065165 /* #34.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76CE0D8F1D87DDC500065165 /* #34.cpp */; };
 		76CE0D921D8827B900065165 /* stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76CE0D911D8827B900065165 /* stack.cpp */; };
+		76CE0D941D8AE99000065165 /* sortchar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76CE0D931D8AE99000065165 /* sortchar.cpp */; };
+		76CE0D961D8D010100065165 /* stringmatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76CE0D951D8D010100065165 /* stringmatch.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +39,8 @@
 		76CE0D8A1D80031F00065165 /* #2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "#2.cpp"; sourceTree = "<group>"; };
 		76CE0D8F1D87DDC500065165 /* #34.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "#34.cpp"; sourceTree = "<group>"; };
 		76CE0D911D8827B900065165 /* stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack.cpp; sourceTree = "<group>"; };
+		76CE0D931D8AE99000065165 /* sortchar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sortchar.cpp; sourceTree = "<group>"; };
+		76CE0D951D8D010100065165 /* stringmatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stringmatch.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				76CE0D8A1D80031F00065165 /* #2.cpp */,
 				76CE0D8F1D87DDC500065165 /* #34.cpp */,
 				76CE0D911D8827B900065165 /* stack.cpp */,
+				76CE0D931D8AE99000065165 /* sortchar.cpp */,
+				76CE0D951D8D010100065165 /* stringmatch.cpp */,
 			);
 			path = uoj;
 			sourceTree = "<group>";
@@ -143,6 +149,8 @@
 				76CE0D8B1D80031F00065165 /* #2.cpp in Sources */,
 				76CE0D921D8827B900065165 /* stack.cpp in Sources */,
 				76CE0D891D8000AD00065165 /* #1.cpp in Sources */,
+				76CE0D941D8AE99000065165 /* sortchar.cpp in Sources */,
+				76CE0D961D8D010100065165 /* stringmatch.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
