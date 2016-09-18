@@ -14,16 +14,21 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-int match(char str[],char strchild[],int nextarr[]){
+typedef struct charstr {
+    int length;
+    char arr[1000];
+} CHARSTR;
+
+int match(CHARSTR *str,CHARSTR *strchild,int nextarr[]){
     int count(0);
-    int length = str[0]-'0';
-    int child_length = strchild[0]-'0';
+    int length = str->length;
+    int child_length = strchild->length;
     //移动子串
     int j = 1;
     for(int i=1;i<=length;){
         bool ismatch(true);
         for(;j<=child_length;j++){
-            if(str[i+j-1]!=strchild[j]){//不匹配
+            if(str->arr[i+j-1]!=strchild->arr[j]){//不匹配
                 ismatch = false;
                 int offset = (j-1-nextarr[j-1]);
                 j = j-offset;
@@ -47,12 +52,12 @@ int match(char str[],char strchild[],int nextarr[]){
     return count;
 }
 
-int each_next(char str[],int cur){//cur == length
+int each_next(CHARSTR *str,int cur){//cur == length
     int common(0);
     for (int i = (cur-1); i >= 1; i--) {//前缀
         bool flag(true);
         for (int j = 1; j<=i; j++) {
-            if(str[j] != str[cur-i+j]){
+            if(str->arr[j] != str->arr[cur-i+j]){
                 flag = false;
                 common = 0;//不相同
                 break;
@@ -64,21 +69,22 @@ int each_next(char str[],int cur){//cur == length
     return common;
 }
 
-void next(char strchild[],int nextarr[]){
-    int length = strchild[0]-'0';
+void next(CHARSTR *strchild,int nextarr[]){
+    int length = strchild->length;
     for (int i = 1; i<=length; i++) {
         nextarr[i] = each_next(strchild,i);
     }
 }
-void input(int length,char str[]){
+
+void input(CHARSTR *str){
     for(int j = 1;j<1001;j++){
         char letter('0');
         scanf("%c",&letter);
         if(letter == '\n'){
-            str[0] = (j-1)+'0';
+            str->length = (j-1);
             break;
         }
-        str[j] = letter;
+        str->arr[j] = letter;
     }
 }
 
@@ -88,19 +94,24 @@ int main(){
     scanf("%d",&n);
     scanf("%c",&enter);
     int* result = new int[n];
-    char strchild[12];
-    char str[1002];
+    CHARSTR strchild;
+    CHARSTR str;
     for (int i = 0; i<n; i++) {
-        input(12,strchild);
-        input(1002,str);
+        input(&strchild);
+        input(&str);
         int nextarr[11]={0};//与字符串数据结构一致
-        next(strchild,nextarr);
-        result[i] =match(str,strchild,nextarr);
+        next(&strchild,nextarr);
+        result[i] =match(&str,&strchild,nextarr);
 //        cout<<match(str,strchild,nextarr)<<endl;
     }
     
     for(int i = 0;i<n;i++){
-        cout<<result[i]<<endl;
+        if(i == n-1){
+            cout<<result[i];
+        }else{
+            cout<<result[i]<<endl;
+        }
+        
     }
     delete []result;
     return 0;
