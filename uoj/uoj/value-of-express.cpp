@@ -48,6 +48,20 @@ char ss_pop(SSTACK *sstack){
     return result;
 }
 
+int no_push(NSTACK *notack,double letter){
+    
+    notack->pointer+=1;
+    notack->stack[notack->pointer] = letter;
+    return notack->pointer;
+}
+
+double no_pop(NSTACK *notack){
+    double result;
+    result = notack->stack[notack->pointer];
+    notack->pointer -=1;
+    return result;
+}
+
 char ss_get_top(SSTACK *sstack) {
     int pointer = sstack->pointer;
     if(pointer == -1){
@@ -72,27 +86,18 @@ TYPE get_type(char letter){
 //执行两个数计算的函数
 double execcompute(char sym,double noee,double noer){// = 不会进来，因为没有边缘
     double result(0);
-    cout<<sym<<" symbol"<<endl;
-    if (sym == '+') {return noee+noer;}
-    if (sym == '-') {return noee-noer;}
-    if (sym == '*') {return noee*noer;}
-    if (sym == '/') {return noee/noer;}
+    if (sym == '+') {result = noee+noer;}
+    if (sym == '-') {result = noee-noer;}
+    if (sym == '*') {result =  noee*noer;}
+    if (sym == '/') {result =  noee/noer;}
     return result;
 }
 //
-double compute(NSTACK *nostac,SSTACK *symstack){
-    double result;
-    if(nostac->pointer == 1){//到栈底了
-        result =  nostac->stack[0];
-    }else{
-//        symstack->pointer-=1;
-//        symstack->stack[symstack->pointer];//符号出栈
-        //数字出栈两个
-        nostac->stack[nostac->pointer-2] = execcompute(symstack->stack[symstack->pointer-1],nostac->stack[nostac->pointer-2],nostac->stack[nostac->pointer-1]);
-        nostac->pointer -=1;
-        symstack->pointer -=1;
-        result = compute(nostac, symstack);//递归计算自己
-    }
+double compute(NSTACK *nostac,char symbol){
+    double result(0);
+        double er = no_pop(nostac);
+        double ee = no_pop(nostac);
+        no_push(nostac,execcompute(symbol, ee, er));//
     return result;
 }
 
@@ -102,17 +107,15 @@ int dispatch_handle(TYPE type,NSTACK *nostack,SSTACK *symstack){//type是新字�
         case number:
             if(type == symbol||type == space){
                 state.colloct[state.pointer] = '\0';
-                cout<<atof(state.colloct)<<"number"<<endl;
-                nostack->stack[nostack->pointer] = atof(state.colloct);
-                nostack->pointer+=1;
+//                cout<<atof(state.colloct)<<"number"<<endl;
+                no_push(nostack,atof(state.colloct));
             }else if(type == rightbracket){
                 //遇到右括号 ，相当于回车
             }
             break;
         case symbol:
             if(type == number || type == space){
-                symstack->stack[symstack->pointer] = state.colloct[0];
-                symstack->pointer+=1;
+                compute(nostack, state.colloct[0]);
             }else if (type == leftbracket){
                 //遇到左括号，开始考虑递归，注意state
             }
@@ -160,8 +163,10 @@ bool compare(char letter,char top){
 //中缀表达式转后缀表达式
 static TYPE flagstate = symbol;
 
-void pre_deal(char letter,SSTACK *dealedstack,SSTACK *sym){
+int pre_deal(char letter,SSTACK *dealedstack,SSTACK *sym){
+    if(letter == '='){return 0;}
    TYPE type =  get_type(letter);
+//    cout<<letter<<" letter"<<endl;
     switch (type) {
         case number:
             ss_push(dealedstack, letter);
@@ -172,9 +177,11 @@ void pre_deal(char letter,SSTACK *dealedstack,SSTACK *sym){
             if(compare(letter,ss_get_top(sym))){//letter 和栈顶优先级
                 ss_push(sym, letter);
             }else{//letter优先级小于top
-                while(sym->pointer != -1){
+                while(sym->pointer != -1 ){
                     char test = ss_pop(sym);
+                    if(test == '('){ss_push(sym, '(');break;}
                     ss_push(dealedstack,test);
+                    ss_push(dealedstack,' ');
                 }
                 ss_push(sym, letter);
             }
@@ -189,11 +196,13 @@ void pre_deal(char letter,SSTACK *dealedstack,SSTACK *sym){
                 char item = ss_pop(sym);
                 if(item == '('){break;}
                 ss_push(dealedstack, item);
+                ss_push(dealedstack,' ');
             }
             break;
         default:
             break;
     }
+    return 0;
 }
 
 //输入
@@ -204,7 +213,7 @@ double input(){
     SSTACK dealednumber;
     
     dealednumber.pointer = -1;
-    number.pointer = 0;
+    number.pointer = -1;
     sym.pointer = -1;
     
     while (1) {
@@ -219,15 +228,14 @@ double input(){
     while(1){
         if(sym.pointer == -1){break;}
         ss_push(&dealednumber, ss_pop(&sym));
+        ss_push(&dealednumber, ' ');
     }
     ss_push(&dealednumber, '\0');
-    printf("%s\n",dealednumber.stack);
-    //
     sym.pointer = 0;
-    for(int i = 0;i<dealednumber.pointer;i++){
+    for(int i = 0;i<=dealednumber.pointer;i++){
         consum(dealednumber.stack[i],&number,&sym);
     }
-    return compute(&number,&sym);
+    return no_pop(&number);
 }
 
 int main(){
