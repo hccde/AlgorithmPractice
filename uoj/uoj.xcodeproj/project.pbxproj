@@ -12,6 +12,7 @@
 		7634607B1D9D72EF00778E1A /* #22.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7634607A1D9D72EF00778E1A /* #22.cpp */; };
 		7675797C1D9986B400499B92 /* #116.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7675797B1D9986B400499B92 /* #116.cpp */; };
 		767579811D9A245900499B92 /* #117.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 767579801D9A245900499B92 /* #117.cpp */; };
+		76CE00131DA7DC5600DFCC13 /* #24.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76CE00121DA7DC5600DFCC13 /* #24.cpp */; };
 		76CE0D7E1D7FEF1E00065165 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76CE0D7D1D7FEF1E00065165 /* main.cpp */; };
 		76CE0D861D7FEFF600065165 /* libgtest_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76CE0D841D7FEFF600065165 /* libgtest_main.a */; };
 		76CE0D871D7FEFF600065165 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76CE0D851D7FEFF600065165 /* libgtest.a */; };
@@ -46,6 +47,7 @@
 		7634607A1D9D72EF00778E1A /* #22.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "#22.cpp"; sourceTree = "<group>"; };
 		7675797B1D9986B400499B92 /* #116.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "#116.cpp"; sourceTree = "<group>"; };
 		767579801D9A245900499B92 /* #117.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "#117.cpp"; sourceTree = "<group>"; };
+		76CE00121DA7DC5600DFCC13 /* #24.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "#24.cpp"; sourceTree = "<group>"; };
 		76CE0D7A1D7FEF1E00065165 /* uoj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = uoj; sourceTree = BUILT_PRODUCTS_DIR; };
 		76CE0D7D1D7FEF1E00065165 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		76CE0D841D7FEFF600065165 /* libgtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest_main.a; path = uoj/libgtest_main.a; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				763460761D9D661700778E1A /* #11.cpp */,
 				763460781D9D694400778E1A /* #13.cpp */,
 				7634607A1D9D72EF00778E1A /* #22.cpp */,
+				76CE00121DA7DC5600DFCC13 /* #24.cpp */,
 			);
 			path = uoj;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				76CE0D9C1D92537800065165 /* #63.cpp in Sources */,
 				76CE0D9A1D8F6ECE00065165 /* value-of-express.cpp in Sources */,
 				76CE0D9E1D926B9400065165 /* #93.cpp in Sources */,
+				76CE00131DA7DC5600DFCC13 /* #24.cpp in Sources */,
 				76CE0D921D8827B900065165 /* stack.cpp in Sources */,
 				7634607B1D9D72EF00778E1A /* #22.cpp in Sources */,
 				76CE0D891D8000AD00065165 /* #1.cpp in Sources */,
