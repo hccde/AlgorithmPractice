@@ -38,7 +38,7 @@ void next(string str,int arr[]){
 			post_temp = *j+post_temp;
 			postfix_arr[j-temp.begin()-1] = post_temp;
 		}
-		log_arr(postfix_arr);
+		// log_arr(postfix_arr);
 		arr[i-collect] = get_common_ele(prefix_arr,postfix_arr,i-collect);
 		// cout<<arr[i-collect]<<endl;
 		delete[] postfix_arr;
@@ -46,10 +46,33 @@ void next(string str,int arr[]){
 	delete[] prefix_arr;
 }
 
+int match(string child_str,string parent_str,int next_arr[]){
+	int pos(-1);
+	int child_len = child_str.size();
+	int parent_len = parent_str.size();
+
+	for(int i = 0;i<=parent_len;){
+		for(int j = 0;j<child_len;j++){
+			if(child_str[j] != parent_str[i+j]){//unmatch
+				int move = j-next_arr[j];
+				i = move>0?i+move:1+i;
+				break;
+			}else if(j ==child_len-1){
+				//only match once
+				pos = i;
+				cout<<pos<<" pos"<<endl;
+				return pos;
+			}
+		}
+	}
+	return pos;
+}
+
 int main(){
 	string child_str = "ABCDABD";
 	int length = child_str.size();
-	string parent_str = "ababababababababab";
+	string parent_str = "absaaABABCDABDab";
 	int *next_arr = new int[length];
 	next(child_str,next_arr);
+	match(child_str,parent_str,next_arr);
 }
