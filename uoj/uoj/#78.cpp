@@ -66,7 +66,9 @@ int dfs(Node (*graph)[501],int u,int j,int nl,int nr){
 					if(graph[i][j].value == -1 && graph[i][j].visited<1){
 						cout<<"tt"<<endl;
 						for(int t=1;t<=nr;t++){
-							if(dfs(graph,i,t,nl,nr) == 0){
+							int m = dfs(graph,i,t,nl,nr);
+							cout<<"m: "<<m<<endl;
+							if(m == 0){
 								cout<<"mm"<<endl;
 								graph[i][j].visited = 1;
 								graph[u][j].value = -1;
@@ -92,9 +94,10 @@ int main(int argc,char** argv){
 	for(int i = 1;i<=nl;i++){
 		for(int j=1;j<=nr;j++){
 			dfs(graph,i,j,nl,nr);
+			showMatch(graph,nr,nl);
+			cout<<"--------"<<endl;
 			clearVisited(graph,nl,nr);
 		}
 	}
-	showMatch(graph,nr,nl);
 	return 0;
 }
