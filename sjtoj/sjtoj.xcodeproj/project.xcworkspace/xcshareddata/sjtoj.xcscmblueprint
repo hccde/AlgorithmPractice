@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3DB8257F7384FFD375BE0819E00A8857D0AFFA86",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3DB8257F7384FFD375BE0819E00A8857D0AFFA86" : 0,
+    "76A15575C5B740800EF8E92EA66B97A276AEF659" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1349B64C-ED8D-489A-BD90-76ACBE25BBC7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3DB8257F7384FFD375BE0819E00A8857D0AFFA86" : "AlgorithmPractice\/",
+    "76A15575C5B740800EF8E92EA66B97A276AEF659" : "googletest\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "sjtoj",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "sjtoj\/sjtoj.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:hccde\/AlgorithmPractice.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3DB8257F7384FFD375BE0819E00A8857D0AFFA86"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:google\/googletest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "76A15575C5B740800EF8E92EA66B97A276AEF659"
+    }
+  ]
+}
