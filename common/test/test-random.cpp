@@ -2,11 +2,8 @@
 #include "../lib/random.hpp"
 using namespace std;
 int main(int argc,char** argv){
-	cout<<random_number(10)<<endl;
-	cout<<random_number(12)<<endl;
-	cout<<random_number(12)<<endl;
-	cout<<random_number(12)<<endl;
-	// random_numbers(10,10);
+	cout<<random_number(100);
+	random_numbers(10,10);
 	return 0;
 }
 
