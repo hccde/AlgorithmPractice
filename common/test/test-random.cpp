@@ -2,8 +2,10 @@
 #include "../lib/random.hpp"
 using namespace std;
 int main(int argc,char** argv){
-	cout<<random_number(100);
-	random_numbers(10,10);
+	auto nums =  random_numbers(10,10);
+	for(auto i:nums){
+		cout<<nums[i]<<endl;
+	}
 	return 0;
 }
 
