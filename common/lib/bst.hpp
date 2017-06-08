@@ -8,16 +8,50 @@
 template <typename T>
 class Bst{
     public:
-    struct Node{
+    class Node{
+        public:
         T value;
-        Node pre;
-        Node left;
-        Node right;
-    };
-    Bst(vector nums){
+        Node* parent;
+        Node* left;
+        Node* right;
+        Node(T _value,Node* _parent,Node* _left,Node* _right ):
+        value(_value),parent(_parent),left(_left),right(_right){
 
+        }
+    };
+    Node* root;
+
+    Bst(vector<T> nums){
+        root = new Node(nums[0],NULL,NULL,NULL);
+        build_bst((nums.begin()+1),nums.end());
     }
-    void insert_node(T value,Node left,Node right){
+
+    Node* find_node(T value,Node* node){
+        if((node->value >= value && node->left == NULL) ||
+        (node->value < value && node->right == NULL)){
+            return node;
+        }else{
+            Node* tem = node->left == NULL?node->right:node->left;
+            return find_node(value,tem);
+        }
+    }
+
+    Node* insert_node(T value){
+        Node* parent = find_node(value,root);
+        Node* node  = new Node(value,parent,NULL,NULL);
+        parent->value > value ? parent->left = node:parent->right = node;
+        return node;
+    }
+
+    void build_bst(typename vector<T>::iterator iter,typename vector<T>::iterator end){
+        if(iter!=end){
+            Node* node = insert_node(*iter);
+            root->value > *iter ? root->left=node : root->right = node;
+            build_bst(iter+1,end);
+        }
+    }
+
+    void traversal(){
 
     }
 };
