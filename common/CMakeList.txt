@@ -1,0 +1,4 @@
+#project name
+#project('random')
+#add exec
+#add_executable()
