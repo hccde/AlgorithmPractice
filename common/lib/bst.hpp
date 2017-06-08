@@ -31,7 +31,7 @@ class Bst{
         (node->value < value && node->right == NULL)){
             return node;
         }else{
-            Node* tem = node->left == NULL?node->right:node->left;
+            Node* tem = value >= node->value?node->right:node->left;
             return find_node(value,tem);
         }
     }
@@ -39,20 +39,24 @@ class Bst{
     Node* insert_node(T value){
         Node* parent = find_node(value,root);
         Node* node  = new Node(value,parent,NULL,NULL);
+        node->parent = parent;
         parent->value > value ? parent->left = node:parent->right = node;
-        return node;
+        return parent;
     }
 
     void build_bst(typename vector<T>::iterator iter,typename vector<T>::iterator end){
         if(iter!=end){
             Node* node = insert_node(*iter);
-            root->value > *iter ? root->left=node : root->right = node;
             build_bst(iter+1,end);
         }
     }
 
-    void traversal(){
-
+    void traversal(Node* node){
+        if(node != NULL){
+            std::cout<<node->value<<" ";
+            traversal(node->left);
+            traversal(node->right);
+        }
     }
 };
 

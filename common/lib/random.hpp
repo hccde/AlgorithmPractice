@@ -35,5 +35,12 @@ vector<T> random_numbers(T range,int count){
     return nums;
 }
 
+template <typename T>
+void show_vector(vector<T> arr){
+    std::cout<<std::endl;
+    for(auto item : arr){
+        std::cout<<item<<" ";
+    }
+}
 
 #endif

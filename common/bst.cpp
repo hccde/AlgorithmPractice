@@ -4,6 +4,10 @@
 using namespace std;
 
 int main(int argc,char** argv){
-    Bst<int> b = Bst<int>(random_numbers(50,20));
+    vector<int> randnums = random_numbers(50,20);
+    show_vector(randnums); 
+    cout<<endl;
+    Bst<int> b = Bst<int>(randnums);
+    b.traversal(b.root);
     return 0;
 }
