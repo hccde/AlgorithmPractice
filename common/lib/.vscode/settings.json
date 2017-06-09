@@ -27,6 +27,16 @@
         "ostream": "cpp",
         "streambuf": "cpp",
         "ios": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "functional": "cpp",
+        "system_error": "cpp",
+        "tuple": "cpp",
+        "__bit_reference": "cpp",
+        "__split_buffer": "cpp",
+        "bitset": "cpp",
+        "vector": "cpp",
+        "atomic": "cpp",
+        "locale": "cpp",
+        "type_traits": "cpp"
     }
 }
