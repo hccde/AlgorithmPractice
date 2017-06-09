@@ -28,9 +28,8 @@ class Bst{
     }
 
     Node* find_node(T value,Node* node){
-        std::cout<<node->value<<std::endl;
-        if((node->value >= value && node->left == NULL) ||
-        (node->value < value && node->right == NULL)){
+        if((node->value > value && node->left == NULL) ||
+        (node->value <= value && node->right == NULL)){
             return node;
         }else{
             Node* tem = NULL;
@@ -40,6 +39,7 @@ class Bst{
     }
 
     void insert_node(T value){
+        std::cout<<value<<std::endl;
         Node* parent = find_node(value,root);
         Node* node  = new Node(value,parent,NULL,NULL);
         parent->value > value ? parent->left = node:parent->right = node;
@@ -52,7 +52,7 @@ class Bst{
         //     build_bst(iters,end);
         // }
         for(;iter!=end;iter++){
-            std::cout<<*iter<<" ";
+            // std::cout<<*iter<<" ";
             insert_node(*iter);
         }
     }
