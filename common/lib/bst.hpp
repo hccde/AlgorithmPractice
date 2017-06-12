@@ -18,6 +18,16 @@ class Bst{
         value(_value),parent(_parent),left(_left),right(_right){
 
         }
+        ~Node(){
+            std::cout<<"11";
+            if(left!=NULL){
+            delete left;
+            }
+            if(right != NULL){
+                delete right;
+            }
+            std::cout<<"over";
+        }
     };
 
     typedef void* handler(Node*);
@@ -88,8 +98,17 @@ class Bst{
         }
         return res;
     }
+    void delete_node(Node* node){
+        if(node != NULL){         
+            delete_node(node->left);
+            delete_node(node->right);
+            // delete  node;
+        }
+    }
+
     ~Bst(){
-        //todo
+        delete root;
+        // delete_node(root);
     }
 };
 

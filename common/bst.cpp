@@ -9,8 +9,6 @@ int main(int argc,char** argv){
     Bst<int> b = Bst<int>(randnums);
     // b.traversal(b.root);
     bool is_vaild =  b.vaild_bst(b.root);
-    if(!is_vaild){
-        cout<<"erro tree";
-    }
+    b.~Bst();
     return 0;
 }
