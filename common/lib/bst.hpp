@@ -19,14 +19,12 @@ class Bst{
 
         }
         ~Node(){
-            std::cout<<"11";
             if(left!=NULL){
             delete left;
             }
             if(right != NULL){
                 delete right;
             }
-            std::cout<<"over";
         }
     };
 
@@ -108,7 +106,6 @@ class Bst{
 
     ~Bst(){
         delete root;
-        // delete_node(root);
     }
 };
 
