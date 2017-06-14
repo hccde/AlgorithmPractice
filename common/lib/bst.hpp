@@ -115,10 +115,17 @@ class Bst{
             delete node;
         }else{
             if(node->right== NULL || node->left == NULL){
-                Node* tem = node->right==NULL?node->left:node->right;
-                node->parent = tem;
+                std::cout<<"hehe";
+                Node* tem=NULL;
+                node->right==NULL?tem = node->left:tem = node->right;
+                tem->parent = node->parent;
+                // delete node;
+                if(node != NULL){
+                    delete node;//delete error,why
+                }
                 return 0;
             }else{
+                std::cout<<"hah";
                 //find next node,copy next node value to this node
                 Node* tem = inorder_find_nextnode(node->right);
                 node->value = tem->value;
@@ -129,12 +136,9 @@ class Bst{
         return 0;
     }
 
-    //right is right child tree node
+    //rightree is right child tree node
     Node* inorder_find_nextnode(Node* rightree){
         std::cout<<rightree->value<<" ";
-        if(rightree == NULL){
-            return rightree;
-        }
         if(rightree->right == NULL && rightree->left == NULL){
             return rightree;
         }else{
