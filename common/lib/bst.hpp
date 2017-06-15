@@ -16,19 +16,13 @@ class Bst{
         Node* right;
         Node(T _value,Node* _parent,Node* _left,Node* _right ):
         value(_value),parent(_parent),left(_left),right(_right){
-
+        }
+        ~Node(){
+            std::cout<<" tes";
         }
     };
-
-    typedef void* handler(Node*);
-    void default_handler(Node* node){
-        std::cout<<node->value<<" ";
-    }
-    void vaild_handler(Node* node){
-        std::cout<<"ha";
-    }
-
     Node* root;
+
     Bst(vector<T> nums){
         root = new Node(nums[0],NULL,NULL,NULL);
         typename vector<T>::iterator begin = nums.begin()+1;
@@ -41,7 +35,11 @@ class Bst{
             return node;
         }else{
             Node* tem = NULL;
-            value > node->value?tem = node->right:tem = node->left;
+            if(value > node->value){
+                tem = node->right
+            }else{
+                tem = node->left;
+            }
             return find_node(value,tem);
         }
     }
@@ -117,11 +115,15 @@ class Bst{
             if(node->right== NULL || node->left == NULL){
                 std::cout<<"hehe";
                 Node* tem=NULL;
-                node->right==NULL?tem = node->left:tem = node->right;
+                if(node->right == NULL){
+                    tem = node->left;
+                }else{
+                    tem = node->right;
+                }
                 tem->parent = node->parent;
-                // delete node;
+                delete node;
                 if(node != NULL){
-                    delete node;//delete error,why
+                    delete node;
                 }
                 return 0;
             }else{
@@ -145,7 +147,7 @@ class Bst{
             return inorder_find_nextnode(rightree->left);
         }
     }
-    //
+
     void delete_childtree(Node *node){
         if(node != NULL){
             delete_childtree(node->left);
