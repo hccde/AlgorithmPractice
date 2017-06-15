@@ -11,7 +11,7 @@ int main(int argc,char** argv){
     // b->in_order_traversal(b->root);
     b->remove_node(b->root->right);
     cout<<endl;
-    b->in_order_traversal(b->root);
+    // b->in_order_traversal(b->root);
     delete b;
     return 0;
 }

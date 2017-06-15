@@ -17,9 +17,6 @@ class Bst{
         Node(T _value,Node* _parent,Node* _left,Node* _right ):
         value(_value),parent(_parent),left(_left),right(_right){
         }
-        ~Node(){
-            std::cout<<" tes";
-        }
     };
     Node* root;
 
@@ -36,7 +33,7 @@ class Bst{
         }else{
             Node* tem = NULL;
             if(value > node->value){
-                tem = node->right
+                tem = node->right;
             }else{
                 tem = node->left;
             }
@@ -105,32 +102,44 @@ class Bst{
     }
     //remove node
     int remove_node(Node* node){
+        if(node == NULL){
+            std::cout<<"null node";
+            return -1;
+        }
         if(node->parent == NULL){
             std::cout<<"try to delete root node";
             return -1;
         }
         if(node->left == NULL && node->right == NULL){
+            if(node->parent->value > node->value){
+                node->parent->left = NULL;
+            }else{
+                node->parent->right = NULL;
+            }
             delete node;
         }else{
-            if(node->right== NULL || node->left == NULL){
-                std::cout<<"hehe";
+            if(node->right == NULL || node->left == NULL){
                 Node* tem=NULL;
-                if(node->right == NULL){
-                    tem = node->left;
-                }else{
-                    tem = node->right;
-                }
+                //modif node pointer 
+                tem = node->right == NULL?node->left:node->right;
                 tem->parent = node->parent;
-                delete node;
-                if(node != NULL){
-                    delete node;
+                if(tem->parent->value > tem->value){
+                    tem->parent->left = tem;
+                }else{
+                    tem->parent->right = tem;
                 }
+
+                delete node;
                 return 0;
             }else{
-                std::cout<<"hah";
                 //find next node,copy next node value to this node
                 Node* tem = inorder_find_nextnode(node->right);
                 node->value = tem->value;
+                if(tem->parent->value > tem->value){
+                    tem->parent->left = NULL;
+                }else{
+                    tem->parent->right = NULL;
+                }
                 delete tem;
                 return 0;
             }
@@ -140,8 +149,7 @@ class Bst{
 
     //rightree is right child tree node
     Node* inorder_find_nextnode(Node* rightree){
-        std::cout<<rightree->value<<" ";
-        if(rightree->right == NULL && rightree->left == NULL){
+        if(rightree->left == NULL){
             return rightree;
         }else{
             return inorder_find_nextnode(rightree->left);
