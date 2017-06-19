@@ -9,7 +9,7 @@ int main(int argc,char** argv){
     XMLElement* ele =  doc.NewElement("mydiv");
     doc.NewDeclaration();
     ele->SetAttribute("test",10);
-    doc.LinkEndChild(ele);
+    doc.InsertEndChild(ele);
     if(!doc.SaveFile("test.xml")){
         cout<<"success";
     };
