@@ -1,0 +1,9 @@
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/edit_cache.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/rebuild_cache.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/list_install_components.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/install/local.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/install.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/install/strip.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/uninstall.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/xmltest.dir
+/Users/admos/AlgorithmPractice/tinyxml2/CMakeFiles/tinyxml2.dir
