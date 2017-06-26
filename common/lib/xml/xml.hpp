@@ -8,7 +8,7 @@ namespace xml {
         public:
         XMLDocument doc;//doc object
         XML(){
-
+            std::cout<<"constructor"<<std::endl;
         }
 
         template <class T>
@@ -26,6 +26,10 @@ namespace xml {
         XMLElement* createNode(T* node){
             //create circle element
             return doc.NewElement("circle");    
+        }
+
+        void printDoc(){
+
         }
 
         ~XML(){
