@@ -12,20 +12,23 @@ namespace xml {
         }
 
         template <class T>
-        void insertNode(T* node,T* addedNode=NULL){
+        void insertNode(XMLElement* node,XMLElement* addedNode=NULL,int dire=0){
             if(addedNode == NULL){//root
-                std::cout<<"haha";
-            }else{//insert node
-
+                doc.InsertFirstChild(node);
+            }else if(dire == 0){//insert left node
+                addedNode.InsertFirstChild(node);
+            }else{ //insert right node
+                addedNode.InsertEndChild(node);
             }
-            // doc.InsertAfterChild(node,addedNode);
         }
 
         //default circle
         template <class T>
         XMLElement* createNode(T* node){
             //create circle element
-            return doc.NewElement("circle");    
+            XMLElement* ele =  doc.NewElement("node");
+            //set attribute
+            return ele;
         }
 
         void printDoc(){
