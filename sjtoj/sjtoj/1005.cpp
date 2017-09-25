@@ -1,116 +1,77 @@
-//#include <iostream>
-//using std::cin;
-//using std::cout;
-//using std::endl;
-//
-//const int SUM = 45;
-//const int MULT = 362880;
-//
-//int compare(int num,int numlist[]){
-//    int result = 0;
-//    for(int i=0;i<9;i++){
-//        if(numlist[i] == num){result=1;break;};
-//    }
-//    return result;
-//}
-//
-//int tempcompare(int arr[],int i,int j){
-//    int result = 0;
-//    int numlist[9] = {0};
-//    for(int n=0;n<3;n++){
-//        for (int m=0; m<3; m++) {
-//            int res = 0;
-//            int tem =0;
-//            tem = arr[(n+j)*9+i+m];
-//            res = compare(tem, numlist);
-//            numlist[n*3+m] = tem;
-//            if(res){
-//                result = 1;
-//                break;
-//            }
-//        }
-//    }
-//    return result;
-//}
-//
-//int temcheckEvery(int arr[]){
-//    int result = 1;
-//    for(int i=0;i<7;){
-//        for (int j=0; j<7;) {
-//            int res = 0;
-//            res = tempcompare(arr, i,j);
-//            if(res){//res == 1 break
-//                result = 0;
-//                break;
-//            }
-//            j=j+3;
-//        }
-//        i =i+3;
-//    }
-//    return result;
-//}
-//
-//int checkEvery(int arr[]){
-//    int result = 1;
-//    bool switchButton =true;
-//    //row
-//    for(int i = 0;i< 9 ;i++){
-//        int temlist[9]={0};
-//        for(int j = 0;j<9;j++){
-//            int res=0;
-//            res = compare(arr[i*9+j], temlist);
-//            temlist[j] = arr[i*9+j];
-//            if(res){result=0;switchButton=false;break;}
-//        }
-//    }
-//    
-//    //col
-//    if(switchButton){
-//        for(int i = 0;i< 9 ;i++){
-//            int temlist[9]={0};
-//            for(int j = 0;j<9;j++){
-//                int res;
-//                res = compare(arr[j*9+i], temlist);
-//                temlist[j] = arr[j*9+i];
-//                if(res){result=0;switchButton=false;break;}
-//            }
-//        }
-//    }
-//    
-//    //tem
-//    if (switchButton) {
-//        result = temcheckEvery(arr);
-//    }
-//    return result;
-//}
-//
-//int main(){
-//    
-//    int count(0);
-//    int result[20] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-//    cin>>count;
-//    
-//    for (int k = 0; k<count; k++) {//total sudokuNumber
-//        int sudoku[81] ={0};
-//        bool switchButton = true;
-//        for(int i = 0;i< 9 ;i++){
-//            for(int j = 0;j<9;j++){
-//                int tem = 0;
-//                cin>>tem;
-//                if(switchButton){
-//                    sudoku[j+i*9] = tem;
-//                }
-//            }
-//        }
-//
-//        
-//        if(1){
-//           result[k] =  checkEvery(sudoku);
-//        }
-//    }
-//    
-//    for(int i = 0;i<count;i++){
-//        result[i]?cout<<"Right"<<endl:cout<<"Wrong"<<endl;
-//    }
-//    return 0;
-//}
+#include <iostream>
+using namespace std;
+bool vaild(unsigned short int* item[]){
+	bool res(false);
+	unsigned short int testArray(1);
+	unsigned short int testArray2(1);
+
+	for(int i = 0;i<9;i++){
+		testArray2 = testArray = 1^1;
+		for(int j = 0; j < 9; j++){
+			unsigned short int temp = 1;
+			temp = temp<<(item[i][j]-1);
+
+			unsigned short int temp2 = 1;
+			temp2 = temp2<<(item[j][i]-1);
+
+			testArray =  testArray | temp;
+			testArray2 =  testArray2 | temp;
+		}
+		if(testArray == 511 && testArray ==  511){
+		}else{
+			return res;
+		}
+	}
+	
+	//小矩阵检测
+	for(int i = 0;i<3;i++){
+		for(int j = 0;j<3;j++){
+			testArray = 1^1;
+			for(int m = 0;m<3;m++){
+				for(int n = 0;n<3;n++){
+					unsigned short int temp = 1;
+					temp = temp<<(item[i*3+m][j*3+n]-1);
+					testArray =  testArray | temp;
+				}
+			}
+
+			if(testArray == 511){
+
+			}else{
+				return res;
+			}
+
+		}
+	}
+	return !res;
+
+}
+
+int main()
+{ 
+
+	int count;
+	cin>>count;
+	for(int i = 0;i<count;i++){
+		unsigned short int* item[9];
+		for(int m = 0;m < 9; m++){
+			unsigned short int* col = new unsigned short int[9];
+			for(int n = 0;n < 9; n++){
+				cin>>col[n];
+			}
+			item[m] = col;
+		}
+
+		if(vaild(item)){
+			cout<<"Right"<<endl;
+		}else{
+			cout<<"Wrong"<<endl;
+		}
+
+		// destory
+		for(int j = 0;j<9;j++){
+			delete[] item[j];
+		}
+	}
+	return 0;	
+}
