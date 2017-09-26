@@ -1,174 +1,112 @@
-//#include <iostream>
-//#include <stdio.h>
-//using std::cin;
-//using std::cout;
-//using std::endl;
-//
-//typedef struct Number {
-//    char pointLeft[250];
-//    char pointright[250];
-//} Number;
-//int length(char arr[]){
-//    int lens= 0;
-//    for(int i = 0;1;i++){
-//        if(arr[i] == '\0'){
-//            lens = i;
-//            break;
-//        }
-//    }
-//    return lens;
-//}
-//
-//char* reverse(char arr[]){
-//    int lengths =  length(arr);
-//    int save[250];
-//    for (int i = 0; i<lengths; i++) {
-//        save[i] = arr[lengths-1-i];
-//    }
-//    
-//    for(int i = 0;i<lengths;i++){
-//        arr[i] = save[i];
-//    }
-//    arr[lengths] = '\0';
-//    return arr;
-//}
-//
-//void pushin (char arr[],char value){
-//    int lens = length(arr);
-//    arr[lens] = value;
-//    arr[lens+1] = '\0';
-//}
-//
-//void newNumber(char arr[],Number *number){
-//    int flag = 0;
-//    int lens = length(arr);
-//    for(int i = 0;i<lens;i++){
-//        if(arr[i] == '.'){
-//            flag = 1;
-//            continue;
-//        }
-//        if(flag){
-//            pushin(number->pointright,arr[i]);
-//        }else{
-//            pushin(number->pointLeft,arr[i]);
-//        }
-//    }
-//}
-//
-//int maps(char letter){
-//    switch (letter) {
-//        case '0':
-//            return 0;
-//            break;
-//        case '1':
-//            return 1;
-//            break;
-//        case '2':
-//            return 2;
-//            break;
-//        case '3':
-//            return 3;
-//            break;
-//        case '4':
-//            return 4;
-//            break;
-//        case '5':
-//            return 5;
-//            break;
-//        case '6':
-//            return 6;
-//            break;
-//        case '7':
-//            return 7;
-//            break;
-//        case '8':
-//            return 8;
-//            break;
-//        case '9':
-//            return 9;
-//            break;
-//        default:
-//            break;
-//    }
-//    return 0;
-//}
-//
-//int  sumPart(char adder[],char addee[],char resultpart[],int overflow){
-//
-//    int adderlens = length(adder);
-//    int addeelens = length(addee);
-//    int maxvalue = std::max(addeelens,adderlens);
-//    int flag = 0;
-//    for(int i = 0;i<maxvalue;i++){
-//        int tem;
-//        if(i == 0){
-//            cout<<overflow<<"overflow"<<endl;
-//            tem = maps(adder[i]) + maps(addee[i])+overflow;
-//        }else{
-//            tem = maps(adder[i]) + maps(addee[i])+flag;
-//        }
-//
-//        if(tem >=10){
-//            resultpart[i] = tem % 10 +'0';
-//            flag = 1;
-//        }else{
-//            resultpart[i] = tem +'0';
-//            flag = 0;
-//        }
-//    }
-//        resultpart[maxvalue] = '\0';
-//        return flag;
-//}
-//
-//
-//void sum(Number* addee,Number* adder,char result[]){
-//
-//    char resultright[250]={'\0'},resultleft[250] = {'\0'};
-//    int flag(0),overflow(0);//最好的做法，小数点补0
-//    flag = sumPart(reverse(addee->pointright), reverse(adder->pointright), resultright, 0);
-//    overflow = sumPart(reverse(addee->pointLeft), reverse(adder->pointLeft), resultleft, flag);
-//
-//    if(overflow){
-//      pushin(resultleft,overflow+'0');
-//    }
-//    reverse(resultleft);
-//    reverse(resultright);
-//
-////    cout<<resultleft<<"resultleft"<<endl;
-////    cout<<resultright<<"reslutright"<<endl;
-//    
-//    int lensleft = length(resultleft);
-//    int count = 0;
-//    for(int i = 0;i<lensleft;i++){
-//        if(resultleft[i] != '0'){
-//        result[count] = resultleft[i];
-//            count = count+1;
-//        }
-//    }
-//    result[count] = '.';
-//    count = count+1;
-//    int lensright = length(resultright);
-//    for (int i = 0; i<lensright; i++) {
-//        if(resultright[i] != '0'){
-//            result[count] = resultright[i];
-//            count = count+1;
-//        }
-//    }
-//}
-//
-//int main(){
-//    char last[250] = {'\0'};
-//    char now[250] = {'\0'};
-//    char result[255]={'\0'};
-//    
-//    cin>>last;
-//    cin>>now;
-//
-//    Number adder,addee;
-//    
-//    newNumber(last,&adder);
-//    newNumber(now,&addee);
-//    sum(&adder,&addee,result);
-//    cout<<result<<endl;
-//    return 0;
-//}
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+
+class Number{
+private:
+	string value;
+public:
+	Number(string val):value(val){
+
+	}
+	Number(const char* val):value(val){
+
+	}
+	Number(){
+		value = "0.00";
+	}
+	string getValue() const{
+		return value;
+	}
+	friend Number operator+(const Number& lv,const Number& rv);
+	friend ostream& operator<<(ostream& cout,const Number& val);
+};
+
+
+
+Number operator+ (const Number& lv,const Number& rv){
+	string lvs = lv.getValue();
+	int lv_length = lvs.size();
+	string rvs = rv.getValue();
+	int rv_length = rvs.size();
+
+	unsigned short int flag(0); //进位
+	char result[202];
+	char temp[202];
+	unsigned short int res;
+
+	string max_length_str;
+	string min_length_str;
+	int min_length;
+	int length;
+
+	if(lv_length>rv_length){
+		length = lv_length;
+		min_length = rv_length;
+		max_length_str = lvs;
+		min_length_str = rvs;
+	}else{
+		length = rv_length;
+		min_length = lv_length;
+		max_length_str = rvs;
+		min_length_str = lvs;
+	}
+
+	strcpy(result,max_length_str.c_str());
+	strcpy(temp+(length-min_length),min_length_str.c_str());
+
+	for(int i=length-1,j=0;i>=0;i--,j++){
+		if(i == length-3){
+			result[i] = '.';
+			continue;
+		}
+		if(j< min_length){
+			res =  (unsigned short int)result[i]-48 + (unsigned short int)temp[i]-48+flag;
+			if(res>=10){flag = 1;res-=10;}else{flag = 0;}
+			// cout<<res<<endl;
+			result[i] = res+48;
+		}else{
+			if(flag>0){
+				unsigned short int tem = (unsigned short int)result[i]-48 + flag;
+				if(tem>10){
+					flag = 1;
+					tem-=10;
+				}else{
+					flag = 0;
+				}
+				result[i] = tem+48;
+
+			}else{
+				break;
+			}
+		}
+	}
+	char sum_number[202];
+
+	if(flag>0){
+		sum_number[0] = '1';
+		strcpy(sum_number+1,result);
+
+		return Number(sum_number);
+	}else{
+		return Number(result);
+	}
+}
+
+ostream& operator<<(ostream& cout,const Number& val){
+	cout<<val.getValue()<<endl;
+	return cout;
+}
+
+int main()
+{ 	
+	char add[202];
+	char added[202];
+	cin>>add>>added;
+	Number t(added);
+	Number s(add);
+	cout<< s+t <<endl;
+	return 0;	
+}
